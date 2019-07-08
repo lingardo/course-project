@@ -16,4 +16,9 @@ export class ShoppingListComponent implements OnInit {
   ngOnInit() {
   }
 
+  onIngradientAdded(ingradient: Ingradient){
+    this.ingradients.push(ingradient);
+  }
+
 }
+
