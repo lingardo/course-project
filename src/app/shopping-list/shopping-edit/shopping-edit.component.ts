@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Ingradient } from 'src/app/shared/ingradient.model';
+import { ShoppingListService } from '../shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -9,9 +10,8 @@ import { Ingradient } from 'src/app/shared/ingradient.model';
 export class ShoppingEditComponent implements OnInit {
 @ViewChild('nameInput', {static: false}) nameInputRef: ElementRef;
 @ViewChild('amountInput', {static: false}) amountInputRef: ElementRef;
-@Output() ingradientAdded = new EventEmitter<Ingradient>();
 
-constructor() { }
+constructor(private slService: ShoppingListService) { }
 
   ngOnInit() {
   }
@@ -20,6 +20,6 @@ constructor() { }
     const ingName = this.nameInputRef.nativeElement.value;
     const ingAmount = this.amountInputRef.nativeElement.value;
     const newIngradient = new Ingradient(ingName, ingAmount);
-    this.ingradientAdded.emit(newIngradient);
+    this.slService.addIngradient(newIngradient);
 }
 }
