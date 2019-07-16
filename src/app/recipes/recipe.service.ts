@@ -5,13 +5,13 @@ import { Ingradient } from '../shared/ingradient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
-export class RecipeService{
+export class RecipeService {
     recipeSelected = new EventEmitter<Recipe>();
 
     private recipes: Recipe[] = [
         new Recipe(
-            'A test Recipe', 
-            'This is a description', 
+            'A test Recipe',
+            'This is a description',
             'https://cdn.pixabay.com/photo/2017/07/16/10/43/recipe-2508859_960_720.jpg',
             [
                 new Ingradient('Meat', 1),
@@ -20,28 +20,37 @@ export class RecipeService{
             ),
     // tslint:disable-next-line: max-line-length
         new Recipe(
-            'Another test Recipe', 
-            'This is a another description', 
+            'Another test Recipe',
+            'This is a another description',
             'https://i.pinimg.com/originals/0c/13/41/0c1341bcdfb1d44f560761c012b946e5.jpg',
             [
                 new Ingradient('Meat', 1),
                 new Ingradient('Potatoes', 4)
             ]
-            )
+            ),
+            new Recipe(
+                'Another one test Recipe',
+                'Another description',
+                'https://i.pinimg.com/originals/0c/13/41/0c1341bcdfb1d44f560761c012b946e5.jpg',
+                [
+                    new Ingradient('Meat', 3),
+                    new Ingradient('Potatoes', 8)
+                ]
+                )
       ];
     constructor(private slService: ShoppingListService) {
 
     }
 
-    getRecipes(){
+    getRecipes() {
         return this.recipes.slice();
     }
 
-    getRecipe(index: number){
+    getRecipe(index: number) {
         return this.recipes.slice()[index];
     }
 
-    addIngradientsToShoppingList(ingradients: Ingradient[]){
+    addIngradientsToShoppingList(ingradients: Ingradient[]) {
         this.slService.addIngradients(ingradients);
     }
 }
