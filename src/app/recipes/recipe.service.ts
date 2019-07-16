@@ -29,14 +29,14 @@ export class RecipeService {
             ]
             ),
             new Recipe(
-                'Another one test Recipe',
-                'Another description',
-                'https://i.pinimg.com/originals/0c/13/41/0c1341bcdfb1d44f560761c012b946e5.jpg',
-                [
-                    new Ingradient('Meat', 3),
-                    new Ingradient('Potatoes', 8)
-                ]
-                )
+            'Next test Recipe',
+            'Another description',
+            'https://tastyfoodideas.com/wp-content/uploads/2018/10/crock-pot-beef-stew-recipe.jpg',
+            [
+                new Ingradient('Meat', 3),
+                new Ingradient('Potatoes', 8)
+            ]
+            )
       ];
     constructor(private slService: ShoppingListService) {
 
