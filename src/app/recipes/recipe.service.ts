@@ -1,12 +1,12 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Recipe } from './recipe.model';
 import { Ingradient } from '../shared/ingradient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
+
 @Injectable()
 export class RecipeService {
-    recipeSelected = new EventEmitter<Recipe>();
 
     private recipes: Recipe[] = [
         new Recipe(
@@ -31,7 +31,7 @@ export class RecipeService {
             new Recipe(
             'Next test Recipe',
             'Another description',
-            'https://tastyfoodideas.com/wp-content/uploads/2018/10/crock-pot-beef-stew-recipe.jpg',
+            'https://s24667.pcdn.co/wp-content/uploads/2017/12/Kispiac-Bisztro-Chicken-Budapest-Restaurants.jpg',
             [
                 new Ingradient('Meat', 3),
                 new Ingradient('Potatoes', 8)
