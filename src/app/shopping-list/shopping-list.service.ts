@@ -1,26 +1,42 @@
 import { Subject } from 'rxjs';
 
-import { Ingradient } from '../shared/ingradient.model';
+import { Ingredient } from '../shared/ingredient.model';
 
 
 export class ShoppingListService {
-    ingradientChanged = new Subject<Ingradient[]>();
-  private ingradients: Ingradient[] = [
-    new Ingradient('Apples', 5),
-    new Ingradient('Tomatoes', 10),
+    ingradientChanged = new Subject<Ingredient[]>();
+    startedEditing = new Subject<number>();
+  private ingradients: Ingredient[] = [
+    new Ingredient('Apples', 5),
+    new Ingredient('Tomatoes', 10),
   ];
 
   getIngradients() {
     return this.ingradients.slice();
   }
 
-  addIngradient(ingradient: Ingradient) {
+  getIngredient(index: number){
+      return this.ingradients[index];
+  }
+
+  addIngradient(ingradient: Ingredient) {
       this.ingradients.push(ingradient);
       this.ingradientChanged.next(this.ingradients.slice());
   }
 
-  addIngradients(ingradients: Ingradient[]) {
+  addIngradients(ingradients: Ingredient[]) {
     this.ingradients.push(...ingradients);
     this.ingradientChanged.next(this.ingradients.slice());
   }
+
+  updateIngredient(index: number, newIngredient: Ingredient){
+    this.ingradients[index] = newIngredient;
+    this.ingradientChanged.next(this.ingradients.slice());
+  }
+
+  deleteIngredient(index: number) {
+    this.ingradients.splice(index, 1);
+    this.ingradientChanged.next(this.ingradients.slice());
+  }
+
 }
