@@ -10,38 +10,43 @@ import { Subject } from 'rxjs';
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
-        new Recipe(
-            'A test Recipe',
-            'This is a description',
-            'https://cdn.pixabay.com/photo/2017/07/16/10/43/recipe-2508859_960_720.jpg',
-            [
-                new Ingredient('Meat', 1),
-                new Ingredient('Tomatoes', 3)
-            ]
-            ),
-    // tslint:disable-next-line: max-line-length
-        new Recipe(
-            'Another test Recipe',
-            'This is a another description',
-            'https://i.pinimg.com/originals/0c/13/41/0c1341bcdfb1d44f560761c012b946e5.jpg',
-            [
-                new Ingredient('Meat', 1),
-                new Ingredient('Potatoes', 4)
-            ]
-            ),
-            new Recipe(
-            'Next test Recipe',
-            'Another description',
-            'https://s24667.pcdn.co/wp-content/uploads/2017/12/Kispiac-Bisztro-Chicken-Budapest-Restaurants.jpg',
-            [
-                new Ingredient('Meat', 3),
-                new Ingredient('Potatoes', 8)
-            ]
-            )
-      ];
-    constructor(private slService: ShoppingListService) {
+    // private recipes: Recipe[] = [
+    //     new Recipe(
+    //         'A test Recipe',
+    //         'This is a description',
+    //         'https://cdn.pixabay.com/photo/2017/07/16/10/43/recipe-2508859_960_720.jpg',
+    //         [
+    //             new Ingredient('Meat', 1),
+    //             new Ingredient('Tomatoes', 3)
+    //         ]
+    //         ),
+    // // tslint:disable-next-line: max-line-length
+    //     new Recipe(
+    //         'Another test Recipe',
+    //         'This is a another description',
+    //         'https://i.pinimg.com/originals/0c/13/41/0c1341bcdfb1d44f560761c012b946e5.jpg',
+    //         [
+    //             new Ingredient('Meat', 1),
+    //             new Ingredient('Potatoes', 4)
+    //         ]
+    //         ),
+    //         new Recipe(
+    //         'Next test Recipe',
+    //         'Another description',
+    //         'https://s24667.pcdn.co/wp-content/uploads/2017/12/Kispiac-Bisztro-Chicken-Budapest-Restaurants.jpg',
+    //         [
+    //             new Ingredient('Meat', 3),
+    //             new Ingredient('Potatoes', 8)
+    //         ]
+    //         )
+    //   ];
+    private recipes: Recipe[] = [];
 
+    constructor(private slService: ShoppingListService) {}
+
+    setRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
     }
 
     getRecipes() {
