@@ -3,7 +3,7 @@ import * as RecipesActions from './recipe.actions';
 
 export interface State {
   recipes: Recipe[];
-  ingredients: string[]
+  ingredients: string[];
 }
 
 const initialState: State = {
@@ -22,9 +22,10 @@ export function recipeReducer(
         recipes: [...action.payload]
       };
     case RecipesActions.SET_SELECT_DATA:
+      console.log(state);
       return {
         ...state,
-        ingedients: [...state.ingredients, ...action.payload]
+        ingredients: [...action.payload]
       };
     case RecipesActions.ADD_RECIPE:
       return {

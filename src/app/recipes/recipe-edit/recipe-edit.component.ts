@@ -18,9 +18,11 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
-  recipesIngredientsList = ['Tomatoes', 'Potatoes', 'Meat'];
+  recipesIngredientsList = ['Tomatoes', 'Potatoes', 'Makarones'];
   ingredientBollean = false;
   ingredientNull = null;
+  ingredientsSubscription: Subscription;
+  ingredients: string[];
 
   private storeSub: Subscription;
 
@@ -32,7 +34,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store<fromApp.AppState>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -40,12 +42,20 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       this.editMode = params['id'] != null;
       this.initForm();
     });
+
+    this.ingredientsSubscription = this.store
+      .select('recipes')
+      .pipe(map(recipesState => recipesState.ingredients))
+      .subscribe((ingredients: string[]) => {
+        console.log(ingredients);
+        this.ingredients = ingredients;
+      });
   }
 
   onAddToShoppingList(i) {
     this.ingredientBollean = true;
     if (this.ingredientBollean) {
-      this.ingredientNull = this.recipesIngredientsList[i];
+      this.ingredientNull = this.ingredients[i];
       this.onAddIngredient();
       this.ingredientBollean = false;
     }
@@ -96,6 +106,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.storeSub) {
       this.storeSub.unsubscribe();
+      this.ingredientsSubscription.unsubscribe();
     }
   }
 

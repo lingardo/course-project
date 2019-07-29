@@ -40,6 +40,7 @@ export class RecipeEffects {
       );
     }),
     map(ingredients => {
+      console.log(ingredients);
       return new RecipesActions.SetSelectData(ingredients);
     })
   );

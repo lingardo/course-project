@@ -8,7 +8,7 @@ export const ADD_RECIPE = '[Recipe] Add Recipe';
 export const UPDATE_RECIPE = '[Recipe] Update Recipe';
 export const DELETE_RECIPE = '[Recipe] Delete Recipe';
 export const STORE_RECIPES = '[Recipe] Store Recipes';
-export const GET_INGREDIENTS_DATA = '[string] Get ingredients Data';
+export const GET_INGREDIENTS_DATA = '[any] Get ingredients Data';
 export const SET_SELECT_DATA = '[string] Set Select Data';
 
 export class SetRecipes implements Action {

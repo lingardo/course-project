@@ -15,8 +15,6 @@ import * as fromApp from '../../store/app.reducer';
 export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
   subscription: Subscription;
-  ingredientsSubscription: Subscription;
-  ingredients: string[];
 
   constructor(
     private router: Router,
@@ -31,14 +29,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       .subscribe((recipes: Recipe[]) => {
         this.recipes = recipes;
       });
-
-
-    this.ingredientsSubscription = this.store
-      .select('recipes')
-      .pipe(map(recipesState => recipesState.ingredients))
-      .subscribe((ingredients: string[]) => {
-        this.ingredients = ingredients;
-      });
   }
 
   onNewRecipe() {
@@ -47,7 +37,5 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.ingredientsSubscription.unsubscribe();
   }
 }
-
