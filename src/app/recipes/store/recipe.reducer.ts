@@ -3,10 +3,12 @@ import * as RecipesActions from './recipe.actions';
 
 export interface State {
   recipes: Recipe[];
+  ingredients: string[]
 }
 
 const initialState: State = {
-  recipes: []
+  recipes: [],
+  ingredients: []
 };
 
 export function recipeReducer(
@@ -18,6 +20,11 @@ export function recipeReducer(
       return {
         ...state,
         recipes: [...action.payload]
+      };
+    case RecipesActions.SET_SELECT_DATA:
+      return {
+        ...state,
+        ingedients: [...state.ingredients, ...action.payload]
       };
     case RecipesActions.ADD_RECIPE:
       return {

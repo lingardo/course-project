@@ -31,6 +31,20 @@ export class RecipeEffects {
     })
   );
 
+  @Effect()
+  GetIngredientsData = this.actions$.pipe(
+    ofType(RecipesActions.GET_INGREDIENTS_DATA),
+    switchMap(() => {
+      return this.http.get<string[]>(
+        'https://firstapp-fd434.firebaseio.com/ingredients.json'
+      );
+    }),
+    map(ingredients => {
+      return new RecipesActions.SetSelectData(ingredients);
+    })
+  );
+
+
   @Effect({dispatch: false})
   storeRecipes = this.actions$.pipe(
     ofType(RecipesActions.STORE_RECIPES),

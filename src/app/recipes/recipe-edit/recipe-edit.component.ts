@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 
 import * as fromApp from '../../store/app.reducer';
 import * as RecipesActions from '../store/recipe.actions';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -17,6 +18,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   id: number;
   editMode = false;
   recipeForm: FormGroup;
+  recipesIngredientsList = ['Tomatoes', 'Potatoes', 'Meat'];
+  ingredientBollean = false;
+  ingredientNull = null;
 
   private storeSub: Subscription;
 
@@ -36,6 +40,16 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       this.editMode = params['id'] != null;
       this.initForm();
     });
+  }
+
+  onAddToShoppingList(i) {
+    this.ingredientBollean = true;
+    if (this.ingredientBollean) {
+      this.ingredientNull = this.recipesIngredientsList[i];
+      this.onAddIngredient();
+      this.ingredientBollean = false;
+    }
+    return this.ingredientNull = null;
   }
 
   onSubmit() {
@@ -62,7 +76,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   onAddIngredient() {
     (<FormArray>this.recipeForm.get('ingredients')).push(
       new FormGroup({
-        name: new FormControl(null, Validators.required),
+        name: new FormControl(this.ingredientNull, Validators.required),
         amount: new FormControl(null, [
           Validators.required,
           Validators.pattern(/^[1-9]+[0-9]*$/)
@@ -129,4 +143,5 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       ingredients: recipeIngredients
     });
   }
+
 }

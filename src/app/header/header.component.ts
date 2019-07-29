@@ -14,6 +14,8 @@ import * as RecipeActions from '../recipes/store/recipe.actions';
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
   private userSub: Subscription;
+  isOpen = false;
+
 
   constructor(
     private store: Store<fromApp.AppState>
@@ -38,13 +40,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onFetchData() {
     // this.dataStorageService.fetchRecipes().subscribe();
     this.store.dispatch(new RecipeActions.FetchRecipes());
+    this.store.dispatch(new RecipeActions.GetIngredientsData());
   }
 
   onLogout() {
     this.store.dispatch(new AuthActions.Logout());
   }
 
+  open() {
+    if (this.isOpen) {
+      this.isOpen = false;
+    } else {
+      this.isOpen = true;
+    }
+  }
+
   ngOnDestroy() {
     this.userSub.unsubscribe();
   }
+  
 }

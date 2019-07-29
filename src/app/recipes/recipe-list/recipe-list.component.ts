@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
@@ -15,12 +15,14 @@ import * as fromApp from '../../store/app.reducer';
 export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[];
   subscription: Subscription;
+  ingredientsSubscription: Subscription;
+  ingredients: string[];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromApp.AppState>
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscription = this.store
@@ -28,6 +30,14 @@ export class RecipeListComponent implements OnInit, OnDestroy {
       .pipe(map(recipesState => recipesState.recipes))
       .subscribe((recipes: Recipe[]) => {
         this.recipes = recipes;
+      });
+
+
+    this.ingredientsSubscription = this.store
+      .select('recipes')
+      .pipe(map(recipesState => recipesState.ingredients))
+      .subscribe((ingredients: string[]) => {
+        this.ingredients = ingredients;
       });
   }
 
@@ -37,6 +47,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.ingredientsSubscription.unsubscribe();
   }
 }
 
